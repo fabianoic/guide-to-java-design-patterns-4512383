@@ -1,11 +1,23 @@
 package com.example;
 
+import com.example.WithdrawalRequest.Currency;
+
 public class App {
 
     public static void main(String[] args) {
-        var request = new WithdrawalRequest(20, WithdrawalRequest.Currency.USD);
-        var atm = new UsDollarATM();
-        atm.dispense(request);
+        var europeRequest = new WithdrawalRequest(20, Currency.EUR);
+        var atm = atmChain();
+        atm.dispense(europeRequest);
+
+        var usRequest = new WithdrawalRequest(50, Currency.USD);
+
+        atm.dispense(usRequest);
+    }
+
+    public static ATM atmChain() {
+        var usDollarATM = new UsDollarATM(null);
+        var euroATM = new EuroATM(usDollarATM);
+        return euroATM;
     }
 
 }
