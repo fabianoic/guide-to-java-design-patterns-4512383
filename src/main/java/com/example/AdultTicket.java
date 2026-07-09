@@ -13,4 +13,8 @@ public class AdultTicket implements TicketElement {
         this.price = price;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
 }
